@@ -30,7 +30,6 @@ class markedExtract:
 
 
         for pageSet in extractList:
-            #textList = []
             for source,cord in enumerate(pageSet[1]):
                 if not('body' in comments[pageSet[2][source]]):
                     if comments[pageSet[2][source]]['parent'] == -1:
@@ -40,9 +39,6 @@ class markedExtract:
                         text = self.__get_parent_body__(comments[pageSet[2][source]]['parent'],comments,ext,pageSet[0])
                         comments[pageSet[2][source]]['body'] = text
 
-            #textList = ext.get_text_from_box((pageSet[0]-1),pageSet[1])
-            #for i,id in enumerate(pageSet[2]):
-            #    comments[id]['body'] = textList[i]
             done = done + len(pageSet[1])
             print "done %d%% of the comments" % (100 * done / size)
 
@@ -59,6 +55,7 @@ class markedExtract:
             return "fail"
 
     def __add_pdf_to_db__(self,source_id,comments,delete=True):
+        self.sql.create_table()
         if delete:
             self.sql.delete_from_marked_table(source_id)
         self.sql.add_marked_text(source_id,comments)
@@ -78,4 +75,4 @@ class markedExtract:
                 return text
 
 #m=markedExtract()
-#m.extract_comments_for_pdf(13876)
+#m.extract_comments_for_pdf(1)

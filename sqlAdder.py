@@ -8,6 +8,21 @@ class sqlModifier:
         self.engine = create_engine('postgresql://postgres@localhost:5432/%s' % (dataBaseName))
         self.engine.execution_options(autocommit=True, autoflush=False, expire_on_commit=False)
 
+    def create_table(self):
+        query = ("CREATE TABLE IF NOT EXISTS tbl_pdf_marked_text("
+                "location_id integer,"
+                "source_id integer,"
+                "ensemble_id integer,"
+                "page integer,"
+                "x integer,"
+                "y integer,"
+                "w integer,"
+                "h integer,"
+                "body text,"
+                "comment_id integer"
+                ")")
+        pd.io.sql.execute(sqlalchemy.text(query), self.engine)
+
     def add_marked_text(self,source_id,comments):
         for comment in comments:
             query = "INSERT INTO tbl_pdf_marked_text VALUES (%d,%d,%d,%d,%d,%d,%d,%d,%r,%d)" %(comments[comment]['location_ID'],source_id,comments[comment]['ensemble_ID'],comments[comment]['page'],comments[comment]['x'],comments[comment]['y'],comments[comment]['w'],comments[comment]['h'],comments[comment]['body'],comment)

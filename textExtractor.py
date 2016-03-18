@@ -10,8 +10,8 @@ class txtExtractor:
     def __init__(self,fileName):
         self.pdfQuery = pdfquery.PDFQuery(fileName)
         self.pdf = PdfFileReader(file(fileName,"rb"))
-        self.x_off = float(self.pdf.pages[1].trimBox[0])
-        self.y_off = float(self.pdf.pages[1].trimBox[1])
+        self.x_off = float(self.pdf.pages[0].trimBox[0])
+        self.y_off = float(self.pdf.pages[0].trimBox[1])
         self.lastPage=-1
 
     def pdf_to_text(self):

@@ -12,16 +12,13 @@ m = markedExtract()
 
 3.extracting marked text from pdf using source_id of the pdf:
 #in order to work, the pdf need to be in folder tmp, and its name is "source_id.pdf"
+#this function create "tbl_pdf_marked_text" table in your db if not exists, and add the results to the table
 
 m.extract_comments_for_pdf(source_id)
 
 4.extracting marked text from pdf by source_id and comment_id:
-#function "extract_comments_for_pdf" must be actived with the relavent source_id before using this function, in order to work
+##if function "extract_comments_for_pdf" already called once or already have the relevant source id in
+##"tbl_pdf_marked_text" table, the function can be used.
+##if non of the above takes place, function "extract_comments_for_pdf" need to be used first
 
-m.get_text_by_comment_id(source_id,comment_id)
-
-5.adding pdf's marked text to db:
-#function "extract_comments_for_pdf" must be actived with the relavant source_id before using this function, in order to work
-#NOTICE - delete indicate if to delete the old lines in the DB for the given source id. default value=True
-
-m.add_pdf_to_db(source_id,db_name,delete=True)
+m.get_text_by_comment_id(comment_id)
